@@ -71,7 +71,11 @@ void* Listener(void *arg){
 
 	poll_ret = poll(&add_device_pollfd,1,5);
 
-	if(poll_ret <= 0)continue;
+	if(poll_ret < 0){
+	    usleep(1000);
+	    continue;
+	    }
+	else if(poll_ret = 0 )continue;
 	else if(add_device_pollfd.revents == POLLIN){
 		
 		if( 0 < read(add_device_pollfd.fd,buf,32)){
